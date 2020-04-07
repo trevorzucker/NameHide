@@ -40,16 +40,6 @@
 			<version>1.15.2-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-			<version>4.1.1.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>com.comphenix.protocol</groupId>
-			<artifactId>ProtocolLib</artifactId>
-			<version>4.5.0</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -59,31 +49,9 @@
 				<directory>${project.basedir}/src/main/resources</directory>
 				<includes>
 					<include>plugin.yml</include>
-					<include>config.yml</include>
 				</includes>
 			</resource>
 		</resources>
-
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<configuration>
-							<target>
-								<copy file="${project.basedir}/target/NameHide-1.0.jar" tofile="C:/Users/trevor/Desktop/minecraft/test server/1.15.2/plugins/NameHide-1.0.jar" />
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 
 	</build>
 </project>
