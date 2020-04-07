@@ -7,11 +7,11 @@
   This plugin hides player's name plates when the player is not visible.
 
 ### How it works:
-    All name plates are hidden by default - by setting every player on the same Scoreboard team -- subsequently disabling nametags.
+  All name plates are hidden by default - by setting every player on the same Scoreboard team -- subsequently disabling nametags.
 
-    Then, for each player that is visible, we create invisible CLIENTSIDE armor stands, with a custom name.
+  Then, for each player that is visible, we create invisible CLIENTSIDE armor stands, with a custom name.
 
-    That armor stand takes the name of the player, and follows them around. Once the player moves out of view, the armor stand despawns.
+  That armor stand takes the name of the player, and follows them around. Once the player moves out of view, the armor stand despawns.
 
 ### Features:
 
