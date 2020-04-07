@@ -1,0 +1,4 @@
+main: codes.zucker.NameHide.Main
+name: NameHide
+version: 1.0
+api-version: 1.15
