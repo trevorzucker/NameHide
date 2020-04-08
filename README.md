@@ -2,7 +2,7 @@
 ### Open-Source Bukkit Plugin
 
 ### What is NameHide?
-  Reinforcement is another plugin that I was commissioned to make.
+  NameHide is another plugin that I was commissioned to make.
 
   This plugin hides player's name plates when the player is not visible.
 
