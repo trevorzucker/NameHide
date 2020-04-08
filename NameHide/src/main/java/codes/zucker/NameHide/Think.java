@@ -29,8 +29,9 @@ public class Think implements Runnable {
     static ScoreboardManager manager = Bukkit.getScoreboardManager();
     static Scoreboard board = manager.getNewScoreboard();
     Team t = board.registerNewTeam("defaultTeam");
-    boolean sneakHidesName = (boolean)ConfigurationLoader.ConfigValues.get("sneakHidesName");
-    int hideNameDistance = (int)ConfigurationLoader.ConfigValues.get("sneakHideDistance");
+    boolean sneakHidesName = (boolean)ConfigurationLoader.GetValue("sneakHidesName");
+    int hideNameDistance = (int)ConfigurationLoader.GetValue("sneakHideDistance");
+    boolean sprintShowName = (boolean)ConfigurationLoader.GetValue("showNameWhenSprinting");
 
     @Override
     public void run() {
@@ -48,11 +49,11 @@ public class Think implements Runnable {
                 if (!(ent instanceof Player)) continue;
                 Player pl = (Player) ent;
                 if (pl == p) continue;
-                boolean bottom = Utils.PlayerCanSee(p, pl.getLocation().add(0, 0.5f, 0));
-                boolean top = Utils.PlayerCanSee(p, pl.getLocation().add(0, 1.8f, 0));
+                boolean bottom = Utils.PlayerCanSee(p, pl.getLocation().add(0, 0.5f, 0), sprintShowName && pl.isSprinting());
+                boolean top = Utils.PlayerCanSee(p, pl.getLocation().add(0, 1.8f, 0), sprintShowName && pl.isSprinting());
                 if (pl.isSneaking())
-                    top = Utils.PlayerCanSee(p, pl.getLocation().add(0, 1.2f, 0));
-                if (bottom && top) {
+                    top = Utils.PlayerCanSee(p, pl.getLocation().add(0, 1.2f, 0), false);
+                if (bottom || top) {
                     if (sneakHidesName && pl.isSneaking() && p.getLocation().distance(pl.getLocation()) > hideNameDistance)
                         continue;
                     visiblePlayers.add(pl);

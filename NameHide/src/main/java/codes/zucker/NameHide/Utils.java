@@ -158,11 +158,12 @@ public class Utils { // some nice utils
         "LEAVES"
     };
 
-    public static boolean PlayerCanSee(Player p, Location dest) {
+    public static boolean PlayerCanSee(Player p, Location dest, boolean sprinting) {
         Location eye = p.getEyeLocation();
         Vector eyeVec = eye.clone().toVector();
         Vector direction = eyeVec.subtract(dest.toVector()).normalize();
         double dist = eye.distance(dest);
+        if (sprinting) return true;
         for(int i = 0; i < dist; i++) {
             Location eyeTemp = eye.clone();
             Vector dirTemp = direction.clone();

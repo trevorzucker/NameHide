@@ -14,9 +14,9 @@ class ConfigurationLoader {
     public static Map<String, Object> ConfigValues = new HashMap<String, Object>();
     static File configFile;
 
-    public static void CreateFile() {
+    public static void CreateFile(boolean override) {
         configFile = new File(Main.getPlugin(Main.class).getDataFolder(), "config.yml");
-        if (!configFile.exists()) {
+        if (override || !configFile.exists()) {
             try {
                 Main.getPlugin(Main.class).getDataFolder().mkdirs();
                 configFile.createNewFile();
@@ -34,7 +34,8 @@ class ConfigurationLoader {
         if (configFile == null) {
             configFile = new File(Main.getPlugin(Main.class).getDataFolder() + "/config.yml");
             if (!configFile.exists())
-                CreateFile();
+                CreateFile(false);
+                
         }
 
         FileConfiguration config = Main.getPlugin(Main.class).getConfig();
@@ -42,5 +43,15 @@ class ConfigurationLoader {
             if(config.getString(item) != null)
             ConfigValues.put(item, config.get(item));
         }
+    }
+
+    public static Object GetValue(String key) {
+        Object value = ConfigValues.get(key);
+        if (value == null) {
+            CreateFile(true);
+            LoadConfigurationFile();
+        }
+        value = ConfigValues.get(key);
+        return value;
     }
 }

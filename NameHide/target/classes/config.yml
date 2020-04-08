@@ -1,2 +1,3 @@
 sneakHidesName: true # should we hide a player's name if they're sneaking?
 sneakHideDistance: 10 # and if so, at what distance should it be hidden?
+showNameWhenSprinting: true # should names of players who are sprinting be shown even through walls?
