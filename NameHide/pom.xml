@@ -6,7 +6,7 @@
 
 	<groupId>codes.zucker.NameHide</groupId>
 	<artifactId>NameHide</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 
 	<name>NameHide</name>
 
@@ -20,10 +20,6 @@
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-		</repository>
-		<repository>
-			<id>dmulloy2-repo</id>
-			<url>https://repo.dmulloy2.net/nexus/repository/public/</url>
 		</repository>
 	</repositories>
 
@@ -49,9 +45,9 @@
 				<directory>${project.basedir}/src/main/resources</directory>
 				<includes>
 					<include>plugin.yml</include>
+					<include>config.yml</include>
 				</includes>
 			</resource>
 		</resources>
-
 	</build>
 </project>

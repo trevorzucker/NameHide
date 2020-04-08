@@ -10,6 +10,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        ConfigurationLoader.LoadConfigurationFile();
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Think(), 0, 1);
     }
 

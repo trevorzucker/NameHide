@@ -29,6 +29,8 @@ public class Think implements Runnable {
     static ScoreboardManager manager = Bukkit.getScoreboardManager();
     static Scoreboard board = manager.getNewScoreboard();
     Team t = board.registerNewTeam("defaultTeam");
+    boolean sneakHidesName = (boolean)ConfigurationLoader.ConfigValues.get("sneakHidesName");
+    int hideNameDistance = (int)ConfigurationLoader.ConfigValues.get("sneakHideDistance");
 
     @Override
     public void run() {
@@ -50,8 +52,11 @@ public class Think implements Runnable {
                 boolean top = Utils.PlayerCanSee(p, pl.getLocation().add(0, 1.8f, 0));
                 if (pl.isSneaking())
                     top = Utils.PlayerCanSee(p, pl.getLocation().add(0, 1.2f, 0));
-                if (bottom && top)
+                if (bottom && top) {
+                    if (sneakHidesName && pl.isSneaking() && p.getLocation().distance(pl.getLocation()) > hideNameDistance)
+                        continue;
                     visiblePlayers.add(pl);
+                }
             }
 
             List<UUID> allPlayerSees = new ArrayList<UUID>();
@@ -63,8 +68,11 @@ public class Think implements Runnable {
                 allPlayerSees.remove(pl.getUniqueId());
                 EntityArmorStand id = PlayerStand.GetStandEntityForPlayer(p, pl);
                 Vector pos = pl.getLocation().toVector();
+                float offset = 1.85f;
+                if (pl.isSneaking())
+                    offset = 1.4f;
                 if (id == null) {
-                    EntityArmorStand stand = new EntityArmorStand(((CraftWorld)p.getWorld()).getHandle().getMinecraftWorld(), pos.getX(), pos.getY() + 1.85f, pos.getZ());
+                    EntityArmorStand stand = new EntityArmorStand(((CraftWorld)p.getWorld()).getHandle().getMinecraftWorld(), pos.getX(), pos.getY() + offset, pos.getZ());
                     stand.setInvisible(true);
                     stand.setCustomName(ChatSerializer.a("{\"text\": \"" + pl.getDisplayName() + "\"}"));
                     stand.setCustomNameVisible(true);
@@ -80,7 +88,7 @@ public class Think implements Runnable {
                     new PlayerStand(p, pl, stand);
                     
                 } else {
-                    id.setLocation(pos.getX(), pos.getY() + 1.85f, pos.getZ(), 0, 0);
+                    id.setLocation(pos.getX(), pos.getY() + offset, pos.getZ(), 0, 0);
                     PacketPlayOutEntityTeleport posPacket = new PacketPlayOutEntityTeleport(id);
                     ((CraftPlayer)p).getHandle().playerConnection.sendPacket(posPacket);
                 }
