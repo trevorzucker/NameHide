@@ -9,6 +9,7 @@ import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
@@ -66,6 +67,8 @@ public class Think implements Runnable {
                     allPlayerSees.add(stand.target.getUniqueId());
 
             for(Player pl : visiblePlayers) {
+                if (pl.hasPotionEffect(PotionEffectType.INVISIBILITY))
+                    continue;
                 allPlayerSees.remove(pl.getUniqueId());
                 EntityArmorStand id = PlayerStand.GetStandEntityForPlayer(p, pl);
                 Vector pos = pl.getLocation().toVector();
