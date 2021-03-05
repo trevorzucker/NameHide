@@ -6,7 +6,7 @@
 
 	<groupId>codes.zucker.NameHide</groupId>
 	<artifactId>NameHide</artifactId>
-	<version>1.4</version>
+	<version>1.5</version>
 
 	<name>NameHide</name>
 
@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot</artifactId>
-			<version>1.15.2-R0.1-SNAPSHOT</version>
+			<version>1.16.5-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
