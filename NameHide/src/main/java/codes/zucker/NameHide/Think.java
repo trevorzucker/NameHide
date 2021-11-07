@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import net.minecraft.network.chat.IChatBaseComponent;
+import net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata;
+import net.minecraft.network.protocol.game.PacketPlayOutEntityTeleport;
+import net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity;
+import net.minecraft.network.syncher.DataWatcher;
+import net.minecraft.world.entity.decoration.EntityArmorStand;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
@@ -16,13 +22,6 @@ import org.bukkit.scoreboard.Team;
 import org.bukkit.scoreboard.Team.Option;
 import org.bukkit.scoreboard.Team.OptionStatus;
 import org.bukkit.util.Vector;
-
-import net.minecraft.server.v1_16_R3.DataWatcher;
-import net.minecraft.server.v1_16_R3.EntityArmorStand;
-import net.minecraft.server.v1_16_R3.PacketPlayOutEntityMetadata;
-import net.minecraft.server.v1_16_R3.PacketPlayOutEntityTeleport;
-import net.minecraft.server.v1_16_R3.PacketPlayOutSpawnEntity;
-import net.minecraft.server.v1_16_R3.IChatBaseComponent.ChatSerializer;
 
 public class Think implements Runnable {
 
@@ -75,23 +74,23 @@ public class Think implements Runnable {
                 if (id == null) {
                     EntityArmorStand stand = new EntityArmorStand(((CraftWorld)p.getWorld()).getHandle().getMinecraftWorld(), pos.getX(), pos.getY() + offset, pos.getZ());
                     stand.setInvisible(true);
-                    stand.setCustomName(ChatSerializer.a("{\"text\": \"" + pl.getName() + "\"}"));
+                    stand.setCustomName(IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + pl.getName() + "\"}"));
                     stand.setCustomNameVisible(true);
                     stand.setMarker(true);
     
                     PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(stand);
-                    ((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
+                    ((CraftPlayer)p).getHandle().b.sendPacket(packet);
     
                     DataWatcher watcher = stand.getDataWatcher();
                     PacketPlayOutEntityMetadata data = new PacketPlayOutEntityMetadata(stand.getId(), watcher, false);
-                    ((CraftPlayer)p).getHandle().playerConnection.sendPacket(data);
+                    ((CraftPlayer)p).getHandle().b.sendPacket(data);
     
                     new PlayerStand(p, pl, stand);
                     
                 } else {
                     id.setLocation(pos.getX(), pos.getY() + offset, pos.getZ(), 0, 0);
                     PacketPlayOutEntityTeleport posPacket = new PacketPlayOutEntityTeleport(id);
-                    ((CraftPlayer)p).getHandle().playerConnection.sendPacket(posPacket);
+                    ((CraftPlayer)p).getHandle().b.sendPacket(posPacket);
                 }
             }
 
