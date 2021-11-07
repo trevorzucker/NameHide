@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy;
+import net.minecraft.world.entity.decoration.EntityArmorStand;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-
-import net.minecraft.server.v1_16_R3.EntityArmorStand;
-import net.minecraft.server.v1_16_R3.PacketPlayOutEntityDestroy;
 
 public class PlayerStand {
     Player owner;
@@ -34,7 +33,7 @@ public class PlayerStand {
 
     public void Remove() {
         PacketPlayOutEntityDestroy destroy = new PacketPlayOutEntityDestroy(stand.getId());
-        ((CraftPlayer)owner).getHandle().playerConnection.sendPacket(destroy);
+        ((CraftPlayer)owner).getHandle().b.sendPacket(destroy);
         List<PlayerStand> list = Stands.get(owner.getUniqueId());
         list.remove(this);
         Stands.put(owner.getUniqueId(), list);
